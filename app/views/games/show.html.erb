@@ -1,0 +1,52 @@
+<h1><%= @game.title %></h1>
+
+<p>Player: <%= @game.player %></p>
+<p>Year: <%= @game.turn_year %> | Day: <%= @game.turn_day %></p>
+
+
+<h3>Buildings</h3>
+<% @game.buildings.each do |building| %>
+  <p>
+    <strong>Name:</strong>
+    <%= building.name %> | <%= building.building_type %>
+  </p>
+  <p>
+    <strong>Description:</strong>
+    <%= building.description %>
+  </p>
+<% end %>
+
+<ul>
+  <li>
+    <%= link_to 'Home', root_path %>
+  </li>
+</ul>
+
+<h3>Debug</h3>
+<ul>
+  <li><%= link_to "Edit", edit_game_path(@game) %></li>
+  <li><%= link_to "Destroy", game_path(@game), data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+  } %></li>
+</ul>
+<div>
+<h3>Add a Building</h3>
+<%= form_with model: [ @game, @game.buildings.build ] do |form| %>
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+  <p>
+    <%= form.label :building_type %><br>
+    <%= form.text_field :building_type %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+</div>
+<% end %>
